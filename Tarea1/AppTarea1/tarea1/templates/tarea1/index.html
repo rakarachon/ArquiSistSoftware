@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Tarea 1 Arqui</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+
+    <style>
+      header {
+        background-color: #7C557F;
+        padding: 30px;
+        text-align: center;
+        font-size: 35px;
+      }
+      body{
+        background-color: #FBC4FF;
+      }
+      h1{
+        color: #FBC4FF;
+      }
+    </style>
+  </head>
+
+  <header>
+    <h1> Tarea 1 Arqui </h1>
+  </header>
+
+  <body>
+    <div class="row">
+      <div class="col-md-2"><br></div>
+      <div class="col-md-8 blog-main">
+        <br>
+        <label>Escribe un comentario:</label>
+        <form class="form-inline" action='new_comment' method="POST">
+            {% csrf_token %}
+            <!-- {{ form }} -->
+            <input type="text" class="form-control col-md-10" name="new_comment">
+            <!-- <button type="submit" class="btn btn-info col-md-2">Submit</button> -->
+            <input type="submit" value="Submit" class="btn btn-info col-md-2">
+        </form>
+
+        <br>
+
+        {% if latest_comments_list %}
+            {% for comment in latest_comments_list %}
+                  <div class="card" padding="10px">
+                    <div class="card-body">
+                      <h6 class="card-subtitle text-muted">{{ comment.pub_date }}</h6>
+                      <p>{{ comment.mensaje }}</p>
+                    </div>
+                  </div>
+            {% endfor %}
+        {% else %}
+            <p> No comments available. </p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+
+  <!-- <br>
+  <footer class="blog-footer">
+    <div class="linkBack">
+      <%= link_to 'Atrás', url_for(:back), class: "btn btn-sm" %>
+    </div>
+    <div class="main-footer">
+      <p class="text-center">Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p class="text-center">
+        <a href="#">Back to top</a>
+      </p>
+    </div>
+  </footer> -->
+</html>
