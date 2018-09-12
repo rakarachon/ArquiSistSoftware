@@ -23,9 +23,14 @@ def new_comment(request):
         form = CommentForm(request.POST)
 
         if form.is_valid():
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[-1].strip()
+            else:
+                ip = request.META.get('REMOTE_ADDR')
             new_comment = Comentario(mensaje=form.cleaned_data['new_comment'],
                                      pub_date=timezone.now(),
-                                     IP_cliente='random ip address')
+                                     IP_cliente=ip)
             new_comment.save()
             return HttpResponseRedirect('/tarea1')
     else:
